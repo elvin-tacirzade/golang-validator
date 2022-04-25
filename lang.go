@@ -10,6 +10,7 @@ type Lang struct {
 	Url      string
 	Min      map[string]string
 	Max      map[string]string
+	Same     string
 }
 
 func GetMessage(name, values string) Lang {
@@ -30,6 +31,7 @@ func GetMessage(name, values string) Lang {
 			"file":    "The " + name + " must not be greater than " + values + " kilobytes.",
 			"string":  "The " + name + " must not be greater than " + values + " characters.",
 		},
+		Same: "The " + name + " and " + values + " must match.",
 	}
 	return eng
 }

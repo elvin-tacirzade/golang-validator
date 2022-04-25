@@ -110,3 +110,10 @@ func MinMax(r *http.Request, key, Value, operator string, values []string) (bool
 		}
 	}
 }
+
+func Same(value, sameValue string) bool {
+	if value == sameValue {
+		return false
+	}
+	return true
+}

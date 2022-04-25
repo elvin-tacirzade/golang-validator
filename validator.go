@@ -43,10 +43,16 @@ func New(r *http.Request, data map[string][]string) []string {
 				messages = AppendMessage(check, msg.Url, messages)
 			}
 			//min-max
-			divide = strings.Split(value, ":")
+			//divide = strings.Split(value, ":")
 			if divide[0] == "min" || divide[0] == "max" {
 				check, msgMinMax := MinMax(r, key, divide[1], divide[0], values)
 				messages = AppendMessage(check, msgMinMax, messages)
+			}
+			//same
+			if divide[0] == "same" {
+				msg = GetMessage(key, divide[1])
+				check := Same(r.FormValue(key), r.FormValue(divide[1]))
+				messages = AppendMessage(check, msg.Same, messages)
 			}
 		}
 	}
