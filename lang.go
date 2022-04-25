@@ -3,7 +3,6 @@ package validator
 type Lang struct {
 	Required string
 	Email    string
-	Unique   string
 	Image    string
 	Numeric  string
 	Str      string
