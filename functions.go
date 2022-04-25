@@ -56,7 +56,7 @@ func Url(value string) bool {
 	return true
 }
 
-func MinMax(r *http.Request, key, Value, operator string) (bool, string) {
+func MinMax(r *http.Request, key, Value, operator string, values []string) (bool, string) {
 	msg := GetMessage(key, Value)
 	IntValue, IntValueErr := strconv.Atoi(Value)
 	CheckError(IntValueErr)
@@ -81,7 +81,7 @@ func MinMax(r *http.Request, key, Value, operator string) (bool, string) {
 		value := r.FormValue(key)
 		intValue, intValueErr := strconv.Atoi(value)
 		floatValue, floatValueErr := strconv.ParseFloat(value, 64)
-		if intValueErr == nil || floatValueErr == nil {
+		if (intValueErr == nil || floatValueErr == nil) && InSlice(values, "numeric") {
 			if operator == "min" {
 				if intValue >= IntValue || floatValue >= FloatValue {
 					return false, ""
@@ -93,6 +93,8 @@ func MinMax(r *http.Request, key, Value, operator string) (bool, string) {
 				}
 				return true, msg.Max["numeric"]
 			}
+		} else if value == "" {
+			return false, ""
 		} else {
 			if operator == "min" {
 				if len(value) >= IntValue {

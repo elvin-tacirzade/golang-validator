@@ -45,8 +45,8 @@ func New(r *http.Request, data map[string][]string) []string {
 			//min-max
 			divide = strings.Split(value, ":")
 			if divide[0] == "min" || divide[0] == "max" {
-				check, msgMin := MinMax(r, key, divide[1], divide[0])
-				messages = AppendMessage(check, msgMin, messages)
+				check, msgMinMax := MinMax(r, key, divide[1], divide[0], values)
+				messages = AppendMessage(check, msgMinMax, messages)
 			}
 		}
 	}

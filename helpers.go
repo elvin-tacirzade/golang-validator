@@ -1,6 +1,9 @@
 package validator
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 func AppendMessage(check bool, msg string, messages []string) []string {
 	if check {
@@ -17,7 +20,8 @@ func CheckError(err error) {
 
 func InSlice(s []string, v string) bool {
 	for _, value := range s {
-		if value == v {
+		d := strings.Split(value, ":")
+		if v == d[0] {
 			return true
 		}
 	}
