@@ -5,20 +5,20 @@ import (
 	"strings"
 )
 
-func AppendMessage(check bool, msg string, messages []string) []string {
+func appendMessage(check bool, msg string, messages []string) []string {
 	if check {
 		messages = append(messages, msg)
 	}
 	return messages
 }
 
-func CheckError(err error) {
+func checkError(err error) {
 	if err != nil {
 		fmt.Println(err)
 	}
 }
 
-func InSlice(s []string, v string) bool {
+func inSlice(s []string, v string) bool {
 	for _, value := range s {
 		d := strings.Split(value, ":")
 		if v == d[0] {

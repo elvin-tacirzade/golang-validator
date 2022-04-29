@@ -1,6 +1,6 @@
 package validator
 
-type Lang struct {
+type lang struct {
 	Required string
 	Email    string
 	Image    string
@@ -12,8 +12,8 @@ type Lang struct {
 	Same     string
 }
 
-func GetMessage(name, values string) Lang {
-	eng := Lang{
+func getMessage(name, values string) lang {
+	eng := lang{
 		Required: "The " + name + " field is required.",
 		Email:    "The " + name + " must be a valid email address.",
 		Image:    "The " + name + " must be a file of type: " + values + ".",

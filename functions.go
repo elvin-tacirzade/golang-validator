@@ -9,14 +9,14 @@ import (
 	"strings"
 )
 
-func Required(value string) bool {
+func required(value string) bool {
 	if value != "" {
 		return false
 	}
 	return true
 }
 
-func Email(value string) bool {
+func email(value string) bool {
 	match, _ := regexp.MatchString(emailRegex, value)
 	if match {
 		return false
@@ -24,7 +24,7 @@ func Email(value string) bool {
 	return true
 }
 
-func Image(r *http.Request, key, mimes string) bool {
+func image(r *http.Request, key, mimes string) bool {
 	_, header, err := r.FormFile(key)
 	if err != nil {
 		return true
@@ -39,7 +39,7 @@ func Image(r *http.Request, key, mimes string) bool {
 	return true
 }
 
-func Numeric(value string) bool {
+func numeric(value string) bool {
 	_, err := strconv.Atoi(value)
 	_, err2 := strconv.ParseFloat(value, 64)
 	if err == nil || err2 == nil {
@@ -48,7 +48,7 @@ func Numeric(value string) bool {
 	return true
 }
 
-func Url(value string) bool {
+func url(value string) bool {
 	match, _ := regexp.MatchString(urlRegex, value)
 	if match {
 		return false
@@ -56,12 +56,12 @@ func Url(value string) bool {
 	return true
 }
 
-func MinMax(r *http.Request, key, Value, operator string, values []string) (bool, string) {
-	msg := GetMessage(key, Value)
+func minMax(r *http.Request, key, Value, operator string, values []string) (bool, string) {
+	msg := getMessage(key, Value)
 	IntValue, IntValueErr := strconv.Atoi(Value)
-	CheckError(IntValueErr)
+	checkError(IntValueErr)
 	FloatValue, FloatValueErr := strconv.ParseFloat(Value, 64)
-	CheckError(FloatValueErr)
+	checkError(FloatValueErr)
 	_, header, errFile := r.FormFile(key)
 	if errFile == nil {
 		kilobyte := float64(header.Size) / 1024
@@ -81,7 +81,7 @@ func MinMax(r *http.Request, key, Value, operator string, values []string) (bool
 		value := r.FormValue(key)
 		intValue, intValueErr := strconv.Atoi(value)
 		floatValue, floatValueErr := strconv.ParseFloat(value, 64)
-		if (intValueErr == nil || floatValueErr == nil) && InSlice(values, "numeric") {
+		if (intValueErr == nil || floatValueErr == nil) && inSlice(values, "numeric") {
 			if operator == "min" {
 				if intValue >= IntValue || floatValue >= FloatValue {
 					return false, ""
@@ -111,7 +111,7 @@ func MinMax(r *http.Request, key, Value, operator string, values []string) (bool
 	}
 }
 
-func Same(value, sameValue string) bool {
+func same(value, sameValue string) bool {
 	if value == sameValue {
 		return false
 	}
